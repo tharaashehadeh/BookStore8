@@ -14,10 +14,10 @@ namespace BookStore.Models.ViewModel
 
         [Display(Name = "publish Date")]
         public DateTime publishDate { get; set; } = DateTime.Now;
-        [Display(Name ="PLZ choose image...")]
+       
 
         public string Publisher { get; set; } = null!;
-
+        [Display(Name = "PLZ choose image...")]
         public IFormFile? ImageUrl { get; set; }
 
         public string Description { get; set; } = null!;

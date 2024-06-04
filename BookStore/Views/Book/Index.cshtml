@@ -1,4 +1,5 @@
-﻿
+﻿@using BookStore.Models.ViewModel
+@model List<BookVM>
 @section Title{
 	Book
 }
@@ -6,4 +7,62 @@
 
 Show
 }
-	
+	@section Buttons{
+	<a asp-controller="Book" asp-action="Create" class="btn btn-primary">Create</a>
+}
+@if (!Model.Any())
+{
+	<div class="card-body">
+		<div class="alert alert-warning alert-dismissible">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+			<h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
+			Categories Not Found
+		</div>
+	</div>
+}
+else
+{
+	<div class="card-body">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th style="width: 10px">#</th>
+					<th>Title</th>
+					<th>Author</th>
+					<th>Publisher </th>
+					<th>publishDate </th>
+					<th>Image </th>
+					<th style="width:250px">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in @Model)
+				{
+					<tr>
+						<td>@item.Id</td>
+						<td>@item.Title</td>
+						<td>@item.Author</td>
+						<td>@item.Publisher </td>
+						<td>@item.publishDate </td>
+						<td><img src="~/img/Books/@item.ImageUrl" width="50px"/></td>
+						<td>@string.Join(", ",item.Categories)</td>
+						<td>
+							<a class="btn btn-sm btn-primary" asp-controller="Categories" asp-action="Edit" asp-route-id="@item.Id">
+								<i class="fas fa-edit ms-2"></i> Edit
+							</a>
+							<a class="btn btn-sm   btn-info " asp-controller="Categories" asp-action="Details" asp-route-id="@item.Id">
+								<i class="fas fa-info-circle mx-1"></i>Details
+							</a>
+							<a class="btn btn-sm  btn-danger" asp-controller="Book" asp-action="Delete" asp-route-id="@item.Id">
+
+								<i class="fas fa-trash mx-1"></i>Delete
+							</a>
+
+						</td>
+					</tr>
+				}
+
+			</tbody>
+		</table>
+	</div>
+}
